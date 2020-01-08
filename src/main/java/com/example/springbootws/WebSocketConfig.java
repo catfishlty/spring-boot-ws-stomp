@@ -16,7 +16,6 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     /**
      * 注册stomp端点，主要是起到连接作用
-     *
      * @param stompEndpointRegistry
      */
     @Override
@@ -32,7 +31,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     /**
      * 注册相关服务
-     *
      * @param registry
      */
     @Override
@@ -40,12 +38,11 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         //这里使用的是内存模式，生产环境可以使用rabbitmq或者其他mq。
         //这里注册两个，主要是目的是将广播和队列分开。
         //registry.enableStompBrokerRelay().setRelayHost().setRelayPort() 其他方式
-        registry.enableSimpleBroker("/topic");
+        registry.enableSimpleBroker("/topic", "/user");
         //设置客户端前缀 即@MessageMapping
         registry.setApplicationDestinationPrefixes("/app");
         //点对点发送前缀
         registry.setUserDestinationPrefix("/user");
     }
-
 }
 
