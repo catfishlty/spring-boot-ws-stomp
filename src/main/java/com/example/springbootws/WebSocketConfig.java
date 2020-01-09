@@ -1,10 +1,20 @@
 package com.example.springbootws;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+import org.springframework.web.socket.server.HandshakeFailureException;
+import org.springframework.web.socket.server.HandshakeHandler;
+import org.springframework.web.socket.server.HandshakeInterceptor;
 
 /**
  * @author Catfish
@@ -23,9 +33,30 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         stompEndpointRegistry
             .addEndpoint("/ws")  //端点名称
             //.setHandshakeHandler() 握手处理，主要是连接的时候认证获取其他数据验证等
-            .addInterceptors() //拦截处理，和http拦截类似
+            .setHandshakeHandler(new HandshakeHandler() {
+                @Override
+                public boolean doHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws HandshakeFailureException {
+//                    List<String> dingCodeList = request.getHeaders().get("dingcode");
+//                    if(Objects.isNull(dingCodeList) || dingCodeList.size()!=1){
+//                        throw new HandshakeFailureException("dingCode is missing");
+//                    }
+                    return true;
+                }
+            })
+            .addInterceptors(new HandshakeInterceptor() {
+                @Override
+                public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
+
+                    return true;
+                }
+
+                @Override
+                public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Exception exception) {
+
+                }
+            }) //拦截处理，和http拦截类似
             .setAllowedOrigins("*") //跨域
-            .withSockJS(); //使用sockJS
+            ; //使用sockJS
 
     }
 

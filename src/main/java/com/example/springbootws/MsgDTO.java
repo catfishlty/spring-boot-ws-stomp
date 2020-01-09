@@ -14,4 +14,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MsgDTO {
     private String content;
+    private String sendFrom;
+    private String sendTo;
+
+    public MsgDTO(String content) {
+        this.content = content;
+    }
 }
