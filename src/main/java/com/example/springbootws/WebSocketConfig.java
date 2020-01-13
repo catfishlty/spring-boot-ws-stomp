@@ -8,7 +8,7 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
-import com.example.springbootws.echo.DefaultEchoService;
+import com.example.springbootws.echo.EchoServiceImpl;
 import com.example.springbootws.echo.EchoService;
 import com.example.springbootws.echo.EchoWebSocketHandler;
 
@@ -38,6 +38,6 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Bean
     public EchoService echoService() {
-        return new DefaultEchoService("Did you say \"%s\"?");
+        return new EchoServiceImpl("Did you say \"%s\"?");
     }
 }
