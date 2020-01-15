@@ -1,4 +1,4 @@
-package com.example.springbootws;
+package com.example.springbootws.lib;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.example.springbootws.message.mapping;
+package com.example.springbootws.ws;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -11,7 +11,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.springbootws.StringConstants;
+import com.example.springbootws.lib.StringConstants;
+import com.example.springbootws.ws.anno.MessageController;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -50,10 +51,14 @@ public class PathMappingManager {
     }
 
     public void init(ApplicationContext context) {
-        Map<String, Object> clzs = context.getBeansWithAnnotation(RequestMapping.class);
+        Map<String, Object> clzs = context.getBeansWithAnnotation(MessageController.class);
         for (Object obj : clzs.values()) {
             Class<?> clz = obj.getClass();
             RequestMapping majorPathAnnotation = clz.getAnnotation(RequestMapping.class);
+            if (majorPathAnnotation.value().length <= 0) {
+                log.warn("{} is not defined ws interface", clz.getName());
+                continue;
+            }
             String majorPath = trimPath(majorPathAnnotation.value()[0]);
             for (Method method : clz.getMethods()) {
                 MessageMapping minorPathAnnotation = method.getAnnotation(MessageMapping.class);

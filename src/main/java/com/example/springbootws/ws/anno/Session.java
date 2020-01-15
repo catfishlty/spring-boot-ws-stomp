@@ -1,4 +1,4 @@
-package com.example.springbootws;
+package com.example.springbootws.ws.anno;
 
 import java.lang.annotation.*;
 

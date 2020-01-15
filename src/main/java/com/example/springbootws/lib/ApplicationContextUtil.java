@@ -1,4 +1,4 @@
-package com.example.springbootws;
+package com.example.springbootws.lib;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

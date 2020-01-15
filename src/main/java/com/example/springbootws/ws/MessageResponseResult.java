@@ -1,4 +1,4 @@
-package com.example.springbootws;
+package com.example.springbootws.ws;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import lombok.Data;
  * @email catfish_lty@qq.com
  */
 @Data
-public class ResponseResult<T> {
+public class MessageResponseResult<T> {
     private Integer code;
     private String desc;
     private T data;

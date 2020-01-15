@@ -1,4 +1,4 @@
-package com.example.springbootws;
+package com.example.springbootws.lib;
 
 /**
  * 特殊字符
